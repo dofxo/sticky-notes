@@ -1,0 +1,188 @@
+/* general */
+body {
+    margin: 0;
+    font-family: nunito-black;
+    background: #8D9EFF;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* container */
+#container {
+    width: 90%;
+    margin: 50px auto;
+    display: flex;
+    background: #EDEDED;
+    border-radius: 30px;
+    min-height: 800px;
+    box-shadow: 0 0 10px -1px #000;
+    border: dashed 0.5px #000;
+}
+
+@media screen and (min-width:1000px) {
+    #container {
+        width: 1300px;
+    }
+}
+
+/* side bar */
+#side-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    border-right: 1px dashed #000;
+
+}
+
+/* side bar width change while screen width is < 500px */
+@media screen and (max-width:500px) {
+    #side-bar {
+        width: 60%;
+    }
+
+}
+
+#side-bar #title {
+    font-size: 2vw;
+    display: flex;
+    align-items: center;
+    margin: 50px 0;
+}
+
+/* font size change on zoomout */
+@media screen and (min-width:1500px) {
+    #side-bar #title {
+        font-size: 20px;
+    }
+
+}
+
+/* drop menu */
+#drop-menu {
+    width: 35px;
+    height: 35px;
+    background-color: #000;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#drop-menu:hover {
+    background-color: #414141;
+}
+
+#drop-menu:active {
+    transform: scale(0.8);
+}
+
+#color-palette {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all linear 0.5s;
+    height: 0;
+    overflow: hidden;
+
+}
+
+/* animation for drop menu */
+
+#color-palette.drop-menu-animation {
+    height: 250px;
+}
+
+/* color palletes */
+.color {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin: 10px 0;
+    transition: 0.1s;
+}
+
+.color:active {
+    transform: scale(0.9);
+}
+
+.color:nth-of-type(1) {
+    background-color: #bca436;
+}
+
+.color:nth-of-type(2) {
+    background-color: #ed863c;
+}
+
+.color:nth-of-type(3) {
+    background-color: #6624a4;
+}
+
+.color:nth-of-type(4) {
+    background-color: #4e83b8;
+}
+
+.color:nth-of-type(5) {
+    background-color: #d7eb59;
+}
+
+/* NOTES container */
+#main-notes-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* "notes" */
+#main-title {
+    margin: 50px 20px;
+    font-size: 2.5vw;
+}
+
+#notes {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.note {
+    background-color: rgb(167, 91, 91);
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 30px 10px;
+}
+
+.note .text {
+    font-family: nunito-medium;
+    resize: none;
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+.note .buttons>button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    transition: 0.1s;
+}
+
+.note .buttons>button:active {
+    transform: scale(0.85);
+}

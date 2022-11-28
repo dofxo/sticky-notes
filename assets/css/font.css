@@ -1,0 +1,9 @@
+@font-face {
+    font-family: nunito-black;
+    src: url(/assets/font/Nunito-Black.ttf);
+}
+
+@font-face {
+    font-family: nunito-medium;
+    src: url(/assets/font/Nunito-Medium.ttf);
+}
