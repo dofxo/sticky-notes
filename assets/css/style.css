@@ -1,8 +1,8 @@
 /* general */
 body {
     margin: 0;
-    font-family: nunito-black;
-    background: #8D9EFF;
+    font-family: Caveat-black;
+    background: #cdecff;
 }
 
 * {
@@ -11,21 +11,18 @@ body {
 
 /* container */
 #container {
-    width: 90%;
+    width: 95%;
     margin: 50px auto;
     display: flex;
     background: #EDEDED;
     border-radius: 30px;
     min-height: 800px;
     box-shadow: 0 0 10px -1px #000;
-    border: dashed 0.5px #000;
+    position: relative;
+
 }
 
-@media screen and (min-width:1000px) {
-    #container {
-        width: 1300px;
-    }
-}
+
 
 /* side bar */
 #side-bar {
@@ -33,8 +30,6 @@ body {
     flex-direction: column;
     align-items: center;
     width: 20%;
-    border-right: 5px dashed #000;
-
 }
 
 /* side bar width change while screen width is < 500px */
@@ -45,20 +40,6 @@ body {
 
 }
 
-#side-bar #title {
-    font-size: 2vw;
-    display: flex;
-    align-items: center;
-    margin: 50px 0;
-}
-
-/* font size change on zoomout */
-@media screen and (min-width:1500px) {
-    #side-bar #title {
-        font-size: 20px;
-    }
-
-}
 
 /* drop menu */
 #drop-menu {
@@ -73,6 +54,7 @@ body {
     font-size: 20px;
     cursor: pointer;
     transition: 0.2s;
+    margin: 50px 0 10px 0;
 }
 
 #drop-menu:hover {
@@ -88,16 +70,53 @@ body {
     flex-direction: column;
     align-items: center;
     transition: all linear 0.5s;
-    height: 0;
     overflow: hidden;
 
 }
 
-/* animation for drop menu */
+#color-palette>* {
+    transform: translateY(-2000%);
 
-#color-palette.drop-menu-animation {
-    height: 250px;
 }
+
+#color-palette>*:nth-child(1) {
+    transition: 0.3s all linear;
+}
+
+#color-palette>*:nth-child(2) {
+    transition: 0.4s all linear;
+}
+
+#color-palette>*:nth-child(3) {
+    transition: 0.5s all linear;
+}
+
+#color-palette>*:nth-child(4) {
+    transition: 0.6s all linear;
+}
+
+#color-palette>*:nth-child(5) {
+    transition: 0.7s all linear;
+}
+
+#color-palette>*:nth-child(6) {
+    transition: 0.8s all linear;
+}
+
+#color-palette>*:nth-child(7) {
+    transition: 0.9s all linear;
+}
+
+
+
+
+/* animation for drop menu */
+.show {
+
+    transform: translateX(0%) !important;
+}
+
+
 
 /* color palletes */
 .color {
@@ -115,7 +134,7 @@ body {
 
 /* each color */
 .color:nth-of-type(1) {
-    background-color: #bca436;
+    background-color: #fbcbcb;
 }
 
 .color:nth-of-type(2) {
@@ -123,15 +142,23 @@ body {
 }
 
 .color:nth-of-type(3) {
-    background-color: #6624a4;
+    background-color: #8c8bec;
 }
 
 .color:nth-of-type(4) {
-    background-color: #4e83b8;
+    background-color: #4261f9;
 }
 
 .color:nth-of-type(5) {
     background-color: #d7eb59;
+}
+
+.color:nth-of-type(6) {
+    background-color: #bdc0bf;
+}
+
+.color:nth-of-type(7) {
+    background-color: #38b1c6;
 }
 
 /* NOTES container */
@@ -143,9 +170,10 @@ body {
 
 /* "notes" */
 #main-title {
-    margin: 50px 20px;
-    font-size: 2.5vw;
+    margin: 10px 20px;
+    font-size: 4vw;
 }
+
 
 /* notes container */
 #notes {
@@ -161,20 +189,20 @@ body {
     background-color: rgb(167, 91, 91);
     width: 200px;
     height: 200px;
-    margin: 5px;
-    padding: 10px;
+    margin: 25px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    border-radius: 10px;
+    border-radius: 50px;
     box-shadow: 0 0 10px -1px #000;
 
 }
 
 
 .note .textbox {
-    font-family: nunito-medium;
+    font-family: Caveat-medium;
     resize: none;
     outline: none;
     border: none;
@@ -182,6 +210,7 @@ body {
     height: 100%;
     width: 100%;
     font-weight: bold;
+    font-size: 20px;
 }
 
 /* all buttons for notes */
@@ -204,10 +233,32 @@ body {
     transition: 0.1s linear;
 }
 
-.note .buttons>button:hover>i {
-    color: red;
+.note .buttons>button:first-of-type:hover>i {
+    color: #ff5757;
 }
+
+.note .buttons>button:last-of-type:hover>i {
+    color: #a5fd83;
+}
+
 
 .note .buttons>button:active {
     transform: scale(0.85);
+}
+
+/* save note ALERT */
+#saved-alert {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #346605;
+    font-size: 30px;
+    padding: 10px;
+    transition: all 0.1s linear;
+    transform: scale(0);
+}
+
+.alert {
+    transform: scale(1) !important;
 }

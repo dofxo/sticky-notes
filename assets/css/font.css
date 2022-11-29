@@ -1,9 +1,9 @@
 @font-face {
-    font-family: nunito-black;
-    src: url(/assets/font/Nunito-Black.ttf);
+    font-family: Caveat-black;
+    src: url(/assets/font/Caveat-Bold.ttf);
 }
 
 @font-face {
-    font-family: nunito-medium;
-    src: url(/assets/font/Nunito-Medium.ttf);
+    font-family: Caveat-medium;
+    src: url(/assets/font/Caveat-Medium.ttf);
 }

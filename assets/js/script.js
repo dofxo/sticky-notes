@@ -1,26 +1,25 @@
 // drop-down menu 
-const menuEl = document.getElementById('drop-menu'),
-    colorPalette = document.getElementById('color-palette'),
-    color = document.querySelectorAll('.color')
+const menuEl = document.getElementById('drop-menu')
+color = document.querySelectorAll('.color')
 
-// function that hides/unhides the sidebar drop-menu
+
+// function that hides/unhides the sidebar color elements
 function sideBarDropMenu() {
-    if (!(colorPalette.classList.contains('drop-menu-animation'))) {
-        colorPalette.classList.add('drop-menu-animation')
-    }
-    else {
-        colorPalette.classList.remove('drop-menu-animation')
-    }
+    color.forEach(item => {
+
+        if (!(item.classList.contains('show'))) {
+            item.classList.add('show')
+        }
+        else {
+            item.classList.remove('show')
+        }
+    })
+
 }
 
-// event listener to hide/unhide the menu (colors and menu it sekf)
+// event listener to hide/unhide the menu 
 
 menuEl.addEventListener('click', sideBarDropMenu)
-
-color.forEach(circleColor => {
-    circleColor.addEventListener('click', sideBarDropMenu)
-
-})
 
 
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
@@ -49,12 +48,14 @@ function createNote() {
             <textarea class="textbox" spellcheck="false"></textarea>
             <div class="buttons">
              <button><i class='bx bxs-trash-alt clear'></i></button>
+             <button><i class='bx bxs-save save'></i></button>
             </div>
         </div>`
             // addes new notes to the #notes container
             notesContainer.innerHTML += newInnerHtml
 
             deleteNote()
+            saveNote()
 
         })
 
@@ -78,8 +79,41 @@ function deleteNote() {
 
     }
 }
+
+
+let saveBtn = document.querySelectorAll('.save')
+const savedAlret = document.getElementById('saved-alert')
+
 // saves the notes into the localStorage
+saveNote()
 function saveNote() {
+
+
+    // updates/selects the new save btns &&  updates/selects the new notes
+    saveBtn = document.querySelectorAll('.save')
+    note = document.querySelectorAll('.note')
+
+
+    saveBtn.forEach(button => {
+
+
+        button.addEventListener('click', () => {
+
+            // changes the saveBtn color to green (saves the note)
+            if (!(button.style.color === '#a5fd83')) {
+
+                // changes the save button color to green
+                button.style.color = '#a5fd83'
+                //  addes a class to saveAlert element and shows a alert / disappears after 
+                savedAlret.classList.add('alert')
+                setTimeout(() => {
+                    savedAlret.classList.remove('alert')
+                }, 800)
+            }
+
+        })
+
+    })
 
 }
 
