@@ -33,7 +33,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 20%;
-    border-right: 1px dashed #000;
+    border-right: 5px dashed #000;
 
 }
 
@@ -151,6 +151,7 @@ body {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    margin: 0 auto;
 
 }
 
@@ -164,8 +165,11 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    border-radius: 30px 10px;
+    border-radius: 5px;
+    border-bottom-right-radius: 50px;
+
 }
+
 
 .note .text {
     font-family: nunito-medium;

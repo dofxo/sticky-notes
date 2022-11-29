@@ -29,10 +29,11 @@ color.forEach(circleColor => {
 // creating note 
 const notesContainer = document.getElementById('notes')
 
-
+// updateable nodelists
 
 let clearBtn = document.querySelectorAll('.clear')
 let note = document.querySelectorAll('.note')
+
 // gets the hexcode value from each color element and creats a new note with the related background color
 color.forEach(item => {
     item.addEventListener('click', () => {
@@ -53,12 +54,14 @@ color.forEach(item => {
         // selects the new clear btns / deletes the note
         clearBtn = document.querySelectorAll('.clear')
 
+
         for (let i = 0; i < clearBtn.length; i++) {
 
             clearBtn[i].addEventListener('click', () => {
 
-                // updates the note's node list / clearBtn node list
+                // updates the note's node list
                 note = document.querySelectorAll('.note')
+
                 // sets the note display to none
                 note[i].style.display = 'none'
 
@@ -72,6 +75,8 @@ color.forEach(item => {
 
 
 
+
+// +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 
 
 
