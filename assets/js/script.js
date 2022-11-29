@@ -34,49 +34,53 @@ const notesContainer = document.getElementById('notes')
 let clearBtn = document.querySelectorAll('.clear')
 let note = document.querySelectorAll('.note')
 
-// gets the hexcode value from each color element and creats a new note with the related background color
-color.forEach(item => {
-    item.addEventListener('click', () => {
+// calling the function
+createNote()
 
-        let colorHexCode = item.getAttribute('backgroundColor')
+// create notes on click (gets the hexcode value from each color element and creats a new note with the related background color)
+function createNote() {
 
-        notesContainer.innerHTML += ` 
-        <div class="note" style="background:${colorHexCode};">
-            <textarea class="text" cols="20" rows="20" spellcheck="false"></textarea>
+    color.forEach(item => {
+        item.addEventListener('click', () => {
+
+            let colorHexCode = item.getAttribute('backgroundColor')
+            let newInnerHtml = ` 
+            <div class="note" style="background:${colorHexCode};">
+            <textarea class="textbox" spellcheck="false"></textarea>
             <div class="buttons">
              <button><i class='bx bxs-trash-alt clear'></i></button>
             </div>
-        </div>
-        `
+        </div>`
+            // addes new notes to the #notes container
+            notesContainer.innerHTML += newInnerHtml
 
-        // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+            deleteNote()
 
-        // selects the new clear btns / deletes the note
-        clearBtn = document.querySelectorAll('.clear')
+        })
 
 
-        for (let i = 0; i < clearBtn.length; i++) {
-
-            clearBtn[i].addEventListener('click', () => {
-
-                // updates the note's node list
-                note = document.querySelectorAll('.note')
-
-                // sets the note display to none
-                note[i].style.display = 'none'
-
-            })
-
-        }
     })
+}
+// deletes the notes on click 
+function deleteNote() {
+
+    // updates/selects the new clear btns &&  updates/selects the new notes
+    clearBtn = document.querySelectorAll('.clear')
+    note = document.querySelectorAll('.note')
 
 
-})
+    for (let i = 0; i < clearBtn.length; i++) {
 
+        clearBtn[i].addEventListener('click', () => {
+            // removes the note element
+            note[i].remove()
+        })
 
+    }
+}
+// saves the notes into the localStorage
+function saveNote() {
 
-
-// +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-
+}
 
 
