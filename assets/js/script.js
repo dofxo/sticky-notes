@@ -81,40 +81,47 @@ function deleteNote() {
 }
 
 
+
 let saveBtn = document.querySelectorAll('.save')
+let textBox = document.querySelectorAll('.textbox')
+
 const savedAlret = document.getElementById('saved-alert')
 
-// saves the notes into the localStorage
+
+
 saveNote()
 function saveNote() {
 
 
-    // updates/selects the new save btns &&  updates/selects the new notes
+    // updates/selects the new save btns &&  updates/selects the new notes && textBox values
     saveBtn = document.querySelectorAll('.save')
     note = document.querySelectorAll('.note')
+    textBox = document.querySelectorAll('.textbox')
 
 
-    saveBtn.forEach(button => {
+    for (let i = 0; i < saveBtn.length; i++) {
+
+        saveBtn[i].addEventListener('click', () => {
 
 
-        button.addEventListener('click', () => {
 
             // changes the saveBtn color to green (saves the note)
-            if (!(button.style.color === '#a5fd83')) {
+            if (!(saveBtn[i].style.color === '#a5fd83')) {
 
-                // changes the save button color to green
-                button.style.color = '#a5fd83'
+                // changes the save  button color to green
+                saveBtn[i].style.color = '#a5fd83'
                 //  addes a class to saveAlert element and shows a alert / disappears after 
                 savedAlret.classList.add('alert')
                 setTimeout(() => {
                     savedAlret.classList.remove('alert')
                 }, 800)
+
             }
 
         })
-
-    })
-
+    }
 }
+
+
 
 
