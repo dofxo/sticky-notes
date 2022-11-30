@@ -81,14 +81,15 @@ function deleteNote() {
 }
 
 
+// saving notes on click
+let saveBtn = document.querySelectorAll('.save'),
+    textBox = document.querySelectorAll('.textbox')
 
-let saveBtn = document.querySelectorAll('.save')
-let textBox = document.querySelectorAll('.textbox')
-
+// alert Element
 const savedAlret = document.getElementById('saved-alert')
 
 
-
+// calling the function
 saveNote()
 function saveNote() {
 
