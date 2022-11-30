@@ -1,7 +1,8 @@
 /* general */
 body {
     margin: 0;
-    font-family: Caveat-black;
+    font-family: 'Caveat', cursive;
+    font-weight: bold;
     background: #cdecff;
 }
 
@@ -202,7 +203,7 @@ body {
 
 
 .note .textbox {
-    font-family: Caveat-medium;
+    font-family: 'Caveat', cursive;
     resize: none;
     outline: none;
     border: none;

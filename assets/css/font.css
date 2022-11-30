@@ -1,9 +1,1 @@
-@font-face {
-    font-family: Caveat-black;
-    src: url(/assets/font/Caveat-Bold.ttf);
-}
-
-@font-face {
-    font-family: Caveat-medium;
-    src: url(/assets/font/Caveat-Medium.ttf);
-}
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Nunito&display=swap');
