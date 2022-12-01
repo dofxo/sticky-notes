@@ -129,9 +129,10 @@ body {
     transition: 0.1s;
 }
 
-.color:active {
-    transform: scale(0.9);
+.color.show:active {
+    transform: scale(0.5) !important;
 }
+
 
 /* each color */
 .color:nth-of-type(1) {
