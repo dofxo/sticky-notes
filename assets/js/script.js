@@ -25,19 +25,25 @@ menuEl.addEventListener('click', sideBarDropMenu)
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 
 
-// creating note 
 const notesContainer = document.getElementById('notes')
+    , savedAlret = document.getElementById('saved-alert')
 
-// updateable nodelists
 
-let clearBtn = document.querySelectorAll('.clear')
-let note = document.querySelectorAll('.note')
+let saveBtn, textBox, clearBtn, note
 
-// calling the function
-createNote()
+// selects and updates new element classes
+function updateNewElements() {
+
+    saveBtn = document.querySelectorAll('.save')
+    textBox = document.querySelectorAll('.textbox')
+    clearBtn = document.querySelectorAll('.clear')
+    note = document.querySelectorAll('.note')
+}
 
 // create notes on click (gets the hexcode value from each color element and creats a new note with the related background color)
 function createNote() {
+
+    updateNewElements()
 
     color.forEach(item => {
         item.addEventListener('click', () => {
@@ -65,10 +71,7 @@ function createNote() {
 // deletes the notes on click 
 function deleteNote() {
 
-    // updates/selects the new clear btns &&  updates/selects the new notes
-    clearBtn = document.querySelectorAll('.clear')
-    note = document.querySelectorAll('.note')
-
+    updateNewElements()
 
     for (let i = 0; i < clearBtn.length; i++) {
 
@@ -80,44 +83,23 @@ function deleteNote() {
     }
 }
 
-
-// saving notes on click
-let saveBtn = document.querySelectorAll('.save'),
-    textBox = document.querySelectorAll('.textbox')
-
-// alert Element
-const savedAlret = document.getElementById('saved-alert')
-
-
-// calling the function
-saveNote()
+//  saves the notes on click
 function saveNote() {
 
 
-    // updates/selects the new save btns &&  updates/selects the new notes && textBox values
-    saveBtn = document.querySelectorAll('.save')
-    note = document.querySelectorAll('.note')
-    textBox = document.querySelectorAll('.textbox')
+    updateNewElements()
 
 
     for (let i = 0; i < saveBtn.length; i++) {
 
         saveBtn[i].addEventListener('click', () => {
 
+            //  addes a class to saveAlert element and shows a alert / disappears after 
+            savedAlret.classList.add('alert')
+            setTimeout(() => {
+                savedAlret.classList.remove('alert')
+            }, 800)
 
-
-            // changes the saveBtn color to green (saves the note)
-            if (!(saveBtn[i].style.color === '#a5fd83')) {
-
-                // changes the save  button color to green
-                saveBtn[i].style.color = '#a5fd83'
-                //  addes a class to saveAlert element and shows a alert / disappears after 
-                savedAlret.classList.add('alert')
-                setTimeout(() => {
-                    savedAlret.classList.remove('alert')
-                }, 800)
-
-            }
 
         })
     }
@@ -126,3 +108,6 @@ function saveNote() {
 
 
 
+// calling the function
+createNote()
+saveNote()
