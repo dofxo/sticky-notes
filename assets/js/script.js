@@ -42,32 +42,27 @@ function updateNewElements() {
 
 // create notes on click (gets the hexcode value from each color element and creats a new note with the related background color)
 function createNote() {
-
-    updateNewElements()
-
     color.forEach(item => {
         item.addEventListener('click', () => {
 
+            updateNewElements()
             // gets the related Background Color HexCode
             let colorHexCode = item.getAttribute('backgroundColor')
 
-            // creates a new ELement (gives it specefit settings)
+            // creates a new ELement (and gives it specefit settings)
             let newInnerHtml = document.createElement('div')
             newInnerHtml.classList.add('note')
             newInnerHtml.setAttribute('style', `background:${colorHexCode};`)
-
-
-            newInnerHtml.innerHTML = ` 
+            newInnerHtml.innerHTML =
+                ` 
             <textarea class="textbox" spellcheck="false"></textarea>
             <div class="buttons">
              <button><i class='bx bxs-trash-alt clear'></i></button>
              <button><i class='bx bxs-save save'></i></button>
             </div>
-       
-        `
+                `
 
             // appends new notes to the #notes container
-
             notesContainer.append(newInnerHtml)
 
 
@@ -94,16 +89,18 @@ function deleteNote() {
     }
 }
 
+
+
 //  saves the notes on click
+let savedTextsArray, savedBackgroundArray
+
 function saveNote() {
 
-
+    updateNewElements()
     for (let i = 0; i < saveBtn.length; i++) {
 
         saveBtn[i].addEventListener('click', () => {
-
             updateNewElements()
-
             //  addes a class to saveAlert element and shows a alert / disappears after 
             savedAlret.classList.add('alert')
             setTimeout(() => {
@@ -111,7 +108,26 @@ function saveNote() {
             }, 800)
 
 
+
+
+
+
         })
+    }
+
+}
+// gets the note details(background and textValue) and pushes them into localStorage
+let savedText, savedBackground
+
+function noteDetails() {
+
+    for (let i = 0; i < textBox.length; i++) {
+
+        savedText = textBox[i].value
+        savedBackground = saveBtn[i].parentElement.parentElement.parentElement.style.background
+
+        savedBackgroundArray.push(savedBackground)
+        savedTextsArray.push(savedText)
     }
 
 }
