@@ -48,17 +48,28 @@ function createNote() {
     color.forEach(item => {
         item.addEventListener('click', () => {
 
+            // gets the related Background Color HexCode
             let colorHexCode = item.getAttribute('backgroundColor')
-            let newInnerHtml = ` 
-            <div class="note" style="background:${colorHexCode};">
+
+            // creates a new ELement (gives it specefit settings)
+            let newInnerHtml = document.createElement('div')
+            newInnerHtml.classList.add('note')
+            newInnerHtml.setAttribute('style', `background:${colorHexCode};`)
+
+
+            newInnerHtml.innerHTML = ` 
             <textarea class="textbox" spellcheck="false"></textarea>
             <div class="buttons">
              <button><i class='bx bxs-trash-alt clear'></i></button>
              <button><i class='bx bxs-save save'></i></button>
             </div>
-        </div>`
-            // addes new notes to the #notes container
-            notesContainer.innerHTML += newInnerHtml
+       
+        `
+
+            // appends new notes to the #notes container
+
+            notesContainer.append(newInnerHtml)
+
 
             deleteNote()
             saveNote()
@@ -87,12 +98,11 @@ function deleteNote() {
 function saveNote() {
 
 
-    updateNewElements()
-
-
     for (let i = 0; i < saveBtn.length; i++) {
 
         saveBtn[i].addEventListener('click', () => {
+
+            updateNewElements()
 
             //  addes a class to saveAlert element and shows a alert / disappears after 
             savedAlret.classList.add('alert')
@@ -103,11 +113,9 @@ function saveNote() {
 
         })
     }
+
 }
 
-
-
-
-// calling the function
+// calling the functions
 createNote()
 saveNote()
