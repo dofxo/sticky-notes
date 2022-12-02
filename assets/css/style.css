@@ -251,16 +251,16 @@ body {
 /* save note ALERT */
 #saved-alert {
     position: absolute;
-    top: 10px;
+    top: 5px;
     left: 50%;
-    transform: translateX(-50%);
-    color: #346605;
-    font-size: 30px;
-    padding: 10px;
+    border-radius: 15px;
+    padding: 5px 15px;
+    background: #a9e09489;
+    border: 1px solid #40ab17;
     transition: all 0.1s linear;
-    transform: scale(0);
+    transform: translateX(-50%) scale(0);
 }
 
 .alert {
-    transform: scale(1) !important;
+    transform: translateX(-50%) scale(1) !important;
 }
