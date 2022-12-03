@@ -1,5 +1,5 @@
 // drop-down menu 
-const menuEl = document.getElementById('drop-menu')
+const menuEl = document.querySelector('#drop-menu')
 color = document.querySelectorAll('.color')
 
 
@@ -14,6 +14,12 @@ function sideBarDropMenu() {
             item.classList.remove('show')
         }
     })
+    if (!(menuEl.classList.contains('rotate'))) {
+        menuEl.classList.add('rotate')
+    }
+    else {
+        menuEl.classList.remove('rotate')
+    }
 
 }
 
@@ -25,11 +31,14 @@ menuEl.addEventListener('click', sideBarDropMenu)
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 
 
-const notesContainer = document.getElementById('notes')
-    , savedAlret = document.getElementById('saved-alert')
+const notesContainer = document.querySelector('#notes')
+    , savedAlret = document.querySelector('#saved-alert')
 
 
-let saveBtn, textBox, clearBtn, note
+let saveBtn = document.querySelectorAll('.save'),
+    textBox = document.querySelectorAll('.textbox'),
+    clearBtn = document.querySelectorAll('.clear'),
+    note = document.querySelectorAll('.note')
 
 // selects and updates new element classes
 function updateNewElements() {
@@ -45,7 +54,7 @@ function createNote() {
     color.forEach(item => {
         item.addEventListener('click', () => {
 
-            updateNewElements()
+
             // gets the related Background Color HexCode
             let colorHexCode = item.getAttribute('backgroundColor')
 
@@ -65,6 +74,7 @@ function createNote() {
             // appends new notes to the #notes container
             notesContainer.append(newInnerHtml)
 
+            updateNewElements()
 
             deleteNote()
             saveNote()
@@ -77,8 +87,6 @@ function createNote() {
 // deletes the notes on click 
 function deleteNote() {
 
-    updateNewElements()
-
     for (let i = 0; i < clearBtn.length; i++) {
 
         clearBtn[i].addEventListener('click', () => {
@@ -89,18 +97,13 @@ function deleteNote() {
     }
 }
 
-
-
 //  saves the notes on click
-let savedTextsArray, savedBackgroundArray
 
 function saveNote() {
 
-    updateNewElements()
     for (let i = 0; i < saveBtn.length; i++) {
 
         saveBtn[i].addEventListener('click', () => {
-            updateNewElements()
             //  addes a class to saveAlert element and shows a alert / disappears after 
             savedAlret.classList.add('alert')
             setTimeout(() => {
@@ -108,29 +111,13 @@ function saveNote() {
             }, 800)
 
 
-
-
-
-
         })
+
+
     }
 
 }
-// gets the note details(background and textValue) and pushes them into localStorage
-let savedText, savedBackground
 
-function noteDetails() {
-
-    for (let i = 0; i < textBox.length; i++) {
-
-        savedText = textBox[i].value
-        savedBackground = saveBtn[i].parentElement.parentElement.parentElement.style.background
-
-        savedBackgroundArray.push(savedBackground)
-        savedTextsArray.push(savedText)
-    }
-
-}
 
 // calling the functions
 createNote()
