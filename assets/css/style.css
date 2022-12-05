@@ -254,7 +254,7 @@ body {
 
 /* save note ALERT */
 #saved-alert {
-    position: absolute;
+    position: fixed;
     top: 5px;
     left: 50%;
     border-radius: 15px;
