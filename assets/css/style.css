@@ -1,13 +1,13 @@
 /* general */
 body {
     margin: 0;
-    font-family: 'Caveat', cursive;
     font-weight: bold;
     background: #cdecff;
 }
 
 * {
     box-sizing: border-box;
+    font-family: iranSans, 'Caveat', cursive;
 }
 
 /* container */
@@ -208,7 +208,7 @@ body {
 
 
 .note .textbox {
-    font-family: 'Caveat', cursive;
+
     resize: none;
     outline: none;
     border: none;
@@ -216,7 +216,7 @@ body {
     height: 100%;
     width: 100%;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 /* all buttons for notes */
