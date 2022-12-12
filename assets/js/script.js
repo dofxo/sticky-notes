@@ -146,10 +146,14 @@ function saveNote() {
                 savedAlret.classList.remove('alert')
             }, 800)
 
-            // gets the text value and pushes it into a new Array
+            // gets the text value
             let textValue = textBox[i].value
 
-            textValueArray.push(textValue)
+            // sets the related array item into the new text
+            textValueArray[i] = textValue
+
+
+
 
             // pushes the array into the localStorage
             localStorage.setItem('text-values', JSON.stringify(textValueArray))
@@ -201,5 +205,4 @@ window.addEventListener('DOMContentLoaded', () => {
     deleteNote()
 
 })
-
 
