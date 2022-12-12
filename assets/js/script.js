@@ -33,10 +33,17 @@ menuEl.addEventListener('click', sideBarDropMenu)
 // defines the backgroundColorArray and checks if it's exists in localStorage and acts based on it's existence
 
 let backgroundColorArray = [],
-    backgroundColorArrayFromLocalStorage = JSON.parse(localStorage.getItem('background-colors'))
+    textValueArray = [],
+    textValueArrayFromLocalStorage = JSON.parse(localStorage.getItem('text-values'))
+backgroundColorArrayFromLocalStorage = JSON.parse(localStorage.getItem('background-colors'))
 
+//  checks for localStorage item existence 
 if (backgroundColorArrayFromLocalStorage) {
     backgroundColorArray = backgroundColorArrayFromLocalStorage
+
+}
+if (textValueArrayFromLocalStorage) {
+    textValueArray = textValueArrayFromLocalStorage
 }
 
 
@@ -48,20 +55,21 @@ let saveBtn = document.querySelectorAll('.save'),
     clearBtn = document.querySelectorAll('.clear'),
     note = document.querySelectorAll('.note')
 
+
+
 // selects and updates new element classes
 function updateNewElements() {
-
     saveBtn = document.querySelectorAll('.save')
     textBox = document.querySelectorAll('.textbox')
     clearBtn = document.querySelectorAll('.clear')
     note = document.querySelectorAll('.note')
-
 
 }
 
 // create notes on click (gets the hexcode value from each color element and creats a new note with the related background color)
 function createNote() {
     color.forEach(item => {
+
         item.addEventListener('click', () => {
 
 
@@ -84,7 +92,7 @@ function createNote() {
             // appends new notes to the #notes container
             notesContainer.append(newInnerHtml)
 
-            let newBackgroundColor = newInnerHtml.style.background
+            let newBackgroundColor = colorHexCode
 
             // gets the newly created note's backgroundColor and pushes it into the backgroundColorArrays
             backgroundColorArray.push(newBackgroundColor)
@@ -97,8 +105,6 @@ function createNote() {
             saveNote()
 
         })
-
-
     })
 }
 // deletes the notes on click 
@@ -112,12 +118,13 @@ function deleteNote() {
             // removes the note element
             note[i].remove()
 
-
-
+            // clear the background array for lenght of 1
             backgroundColorArray.splice(backgroundColorArray[i], 1)
-
             localStorage.setItem('background-colors', JSON.stringify(backgroundColorArray))
 
+            // clear the textValue array for lenght of 1
+            textValueArray.splice(textValueArray[i], 1)
+            localStorage.setItem('text-values', JSON.stringify(textValueArray))
         })
 
 
@@ -139,8 +146,13 @@ function saveNote() {
                 savedAlret.classList.remove('alert')
             }, 800)
 
+            // gets the text value and pushes it into a new Array
+            let textValue = textBox[i].value
 
+            textValueArray.push(textValue)
 
+            // pushes the array into the localStorage
+            localStorage.setItem('text-values', JSON.stringify(textValueArray))
 
         })
 
@@ -149,30 +161,36 @@ function saveNote() {
 
 }
 
+
 // shows and addes the savedNotes from the localStorage to notes container
 
 function showNotes() {
-    backgroundColorArray.forEach(item => {
 
-
+    for (let i = 0; i < backgroundColorArray.length; i++) {
 
         // creates a new ELement (and gives it specefit settings)
         let newInnerHtml = document.createElement('div')
         newInnerHtml.classList.add('note')
-        newInnerHtml.setAttribute('style', `background:${item};`)
+        newInnerHtml.setAttribute('style', `background:${backgroundColorArray[i]};`)
         newInnerHtml.innerHTML =
             ` 
-         <textarea class="textbox" spellcheck="false"></textarea>
-         <div class="buttons">
-          <button><i class='bx bxs-trash-alt clear'></i></button>
-          <button><i class='bx bxs-save save'></i></button>
-         </div>
-             `
+      <textarea class="textbox" spellcheck="false"></textarea>
+      <div class="buttons">
+       <button><i class='bx bxs-trash-alt clear'></i></button>
+       <button><i class='bx bxs-save save'></i></button>
+      </div>
+          `
 
         // appends new notes to the #notes container
         notesContainer.append(newInnerHtml)
         updateNewElements()
-    })
+
+        // sets the textBox values
+        textBox[i].textContent = textValueArray[i]
+
+    }
+
+
 }
 
 // calls functions on dom load
