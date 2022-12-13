@@ -6,17 +6,20 @@ color = document.querySelectorAll('.color')
 // function that hides/unhides the sidebar color elements
 function sideBarDropMenu() {
     color.forEach(item => {
-
+        // if item DOES NOT HAVE the class
         if (!(item.classList.contains('show'))) {
             item.classList.add('show')
         }
+        // if item has the class
         else {
             item.classList.remove('show')
         }
     })
+    // if item DOES NOT HAVE the class
     if (!(menuEl.classList.contains('rotate'))) {
         menuEl.classList.add('rotate')
     }
+    // if item has the class
     else {
         menuEl.classList.remove('rotate')
     }
@@ -38,18 +41,20 @@ let backgroundColorArray = [],
 backgroundColorArrayFromLocalStorage = JSON.parse(localStorage.getItem('background-colors'))
 
 //  checks for localStorage item existence 
-if (backgroundColorArrayFromLocalStorage) {
+if (backgroundColorArrayFromLocalStorage && textValueArrayFromLocalStorage) {
     backgroundColorArray = backgroundColorArrayFromLocalStorage
-
-}
-if (textValueArrayFromLocalStorage) {
     textValueArray = textValueArrayFromLocalStorage
+
 }
 
 
-const notesContainer = document.querySelector('#notes')
-    , savedAlret = document.querySelector('#saved-alert')
+// saved alert EL selection
+const savedAlret = document.querySelector('#saved-alert')
 
+// the notes container selection
+const notesContainer = document.querySelector('#notes')
+
+// buttons and notes
 let saveBtn = document.querySelectorAll('.save'),
     textBox = document.querySelectorAll('.textbox'),
     clearBtn = document.querySelectorAll('.clear'),
@@ -57,7 +62,7 @@ let saveBtn = document.querySelectorAll('.save'),
 
 
 
-// selects and updates new element classes
+// selects and updates newly created notes child and etc.
 function updateNewElements() {
     saveBtn = document.querySelectorAll('.save')
     textBox = document.querySelectorAll('.textbox')
@@ -66,9 +71,10 @@ function updateNewElements() {
 
 }
 
-// create notes on click (gets the hexcode value from each color element and creats a new note with the related background color)
+// create notes on click 
 function createNote() {
     color.forEach(item => {
+        // for each colored circles
 
         item.addEventListener('click', () => {
 
@@ -92,15 +98,17 @@ function createNote() {
             // appends new notes to the #notes container
             notesContainer.append(newInnerHtml)
 
+            //  gets the clicked circle backgroundColor hexCode and set it to a variable
             let newBackgroundColor = colorHexCode
 
             // gets the newly created note's backgroundColor and pushes it into the backgroundColorArrays
             backgroundColorArray.push(newBackgroundColor)
-            //    pushes the created Array into localStorage
+            // pushes the created Array into localStorage
             localStorage.setItem('background-colors', JSON.stringify(backgroundColorArray))
 
-            // updates the created buttons and etc.
+
             updateNewElements()
+            // runs the needed functions after creating each note
             deleteNote()
             saveNote()
 
@@ -112,17 +120,18 @@ function deleteNote() {
 
     for (let i = 0; i < clearBtn.length; i++) {
 
+        // event for each clear Btn clicked
         clearBtn[i].addEventListener('click', () => {
 
 
-            // removes the note element
+            // removes the note element from the notesContaier's childs
             note[i].remove()
 
-            // clear the background array for lenght of 1
+            // clears the background array for lenght of 1 and updates it in the localStorage
             backgroundColorArray.splice(backgroundColorArray[i], 1)
             localStorage.setItem('background-colors', JSON.stringify(backgroundColorArray))
 
-            // clear the textValue array for lenght of 1
+            // clears the textValue array for lenght of 1 and updates it in the localStorage
             textValueArray.splice(textValueArray[i], 1)
             localStorage.setItem('text-values', JSON.stringify(textValueArray))
         })
@@ -131,9 +140,7 @@ function deleteNote() {
 
     }
 }
-
 //  saves the notes on click
-
 function saveNote() {
 
     for (let i = 0; i < saveBtn.length; i++) {
@@ -164,10 +171,7 @@ function saveNote() {
     }
 
 }
-
-
 // shows and addes the savedNotes from the localStorage to notes container
-
 function showNotes() {
 
     for (let i = 0; i < backgroundColorArray.length; i++) {
@@ -189,20 +193,18 @@ function showNotes() {
         notesContainer.append(newInnerHtml)
         updateNewElements()
 
-        // sets the textBox values
+        // sets the textBox's values into the same index of the textValueArrays
         textBox[i].textContent = textValueArray[i]
 
     }
 
 
 }
-
 // calls functions on dom load
 window.addEventListener('DOMContentLoaded', () => {
     showNotes()
     createNote()
     saveNote()
     deleteNote()
-
 })
 
