@@ -206,5 +206,46 @@ window.addEventListener('DOMContentLoaded', () => {
     createNote()
     saveNote()
     deleteNote()
+    timeUpdate()
 })
 
+
+// +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+
+// (live time)
+
+const clock = document.getElementById('clock')
+let hour, minute, second, meridiem
+
+// updates the time every 1s
+setInterval(timeUpdate, 1000)
+
+// updates time function
+function timeUpdate() {
+    let time = new Date()
+    hour = time.getHours()
+    minute = time.getMinutes()
+    second = time.getSeconds()
+
+    // checks for pm or am status 
+    if (hour < 12) {
+        meridiem = 'AM'
+    }
+    else {
+        meridiem = 'PM'
+    }
+
+    // adds a 0 before the number if it's < 10
+    if (hour < 10) {
+        hour = `0${hour}`
+    }
+    if (minute < 10) {
+        minute = `0${minute}`
+    }
+    if (second < 10) {
+        second = `0${second}`
+    }
+
+    // sets new times
+    clock.textContent = `${hour}:${minute}:${second} ${meridiem}`
+}

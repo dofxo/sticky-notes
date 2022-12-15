@@ -269,3 +269,12 @@ body {
 .alert {
     transform: translateX(-50%) scale(1) !important;
 }
+
+/* clock */
+#clock {
+    position: absolute;
+    bottom: 100%;
+    left: 5vw;
+    font-size: 1.5vw;
+    font-family: cursive;
+}
