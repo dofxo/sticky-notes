@@ -7,8 +7,7 @@ body {
 
 * {
     box-sizing: border-box;
-    font-family: 'Caveat', cursive;
-
+    font-family: 'Patrick Hand', cursive;
 }
 
 /* container */
@@ -19,7 +18,7 @@ body {
     background: #EDEDED;
     border-radius: 30px;
     min-height: 800px;
-    box-shadow: 0 0 10px -1px #000;
+    box-shadow: 0 0 5px -1px #000;
     position: relative;
 
 }
@@ -31,7 +30,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 20%;
+    width: 10%;
 }
 
 /* side bar width change while screen width is < 500px */
@@ -274,7 +273,13 @@ body {
 #clock {
     position: absolute;
     bottom: 100%;
-    left: 5vw;
-    font-size: 1.5vw;
-    font-family: cursive;
+    font-size: 30px;
+    right: 35px;
+}
+
+
+@media screen and (max-width:400px) {
+    #clock {
+        font-size: 20px;
+    }
 }
