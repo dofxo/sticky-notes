@@ -88,7 +88,7 @@ function createNote() {
             newInnerHtml.setAttribute('style', `background:${colorHexCode};`)
             newInnerHtml.innerHTML =
                 ` 
-            <textarea class="textbox" spellcheck="false"></textarea>
+            <textarea class="textbox" spellcheck="false" dir="auto"></textarea>
             <div class="buttons">
              <button><i class='bx bxs-trash-alt clear'></i></button>
              <button><i class='bx bxs-save save'></i></button>
@@ -182,7 +182,7 @@ function showNotes() {
         newInnerHtml.setAttribute('style', `background:${backgroundColorArray[i]};`)
         newInnerHtml.innerHTML =
             ` 
-      <textarea class="textbox" spellcheck="false"></textarea>
+      <textarea class="textbox" spellcheck="false" dir="auto"></textarea>
       <div class="buttons">
        <button><i class='bx bxs-trash-alt clear'></i></button>
        <button><i class='bx bxs-save save'></i></button>
