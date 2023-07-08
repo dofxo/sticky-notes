@@ -13,6 +13,7 @@ body {
 /* container */
 #container {
     width: 95%;
+    max-width: 1200px;
     margin: 50px auto;
     display: flex;
     background: #EDEDED;
