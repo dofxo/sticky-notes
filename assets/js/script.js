@@ -1,251 +1,152 @@
-// drop-down menu 
-const menuEl = document.querySelector('#drop-menu')
-color = document.querySelectorAll('.color')
-
+// drop-down menu
+const menuEl = document.querySelector("#drop-menu");
+const colors = Array.from(document.querySelectorAll(".color"));
 
 // function that hides/unhides the sidebar color elements
-function sideBarDropMenu() {
-    color.forEach(item => {
-        // if item DOES NOT HAVE the class
-        if (!(item.classList.contains('show'))) {
-            item.classList.add('show')
-        }
-        // if item has the class
-        else {
-            item.classList.remove('show')
-        }
-    })
-    // if item DOES NOT HAVE the class
-    if (!(menuEl.classList.contains('rotate'))) {
-        menuEl.classList.add('rotate')
-    }
-    // if item has the class
-    else {
-        menuEl.classList.remove('rotate')
-    }
+function toggleColorVisibility() {
+	colors.forEach((color) => {
+		color.classList.toggle("show");
+	});
 
+	menuEl.classList.toggle("rotate");
 }
 
-// event listener to hide/unhide the menu 
+// event listener to hide/unhide the menu
+menuEl.addEventListener("click", toggleColorVisibility);
 
-menuEl.addEventListener('click', sideBarDropMenu)
+// defines the backgroundColorArray and checks if it exists in localStorage and acts based on its existence
+let backgroundColorArray =
+	JSON.parse(localStorage.getItem("background-colors")) || [];
+let textValueArray = JSON.parse(localStorage.getItem("text-values")) || [];
 
-
-// +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-
-// defines the backgroundColorArray and checks if it's exists in localStorage and acts based on it's existence
-
-let backgroundColorArray = [],
-    textValueArray = [],
-    textValueArrayFromLocalStorage = JSON.parse(localStorage.getItem('text-values'))
-backgroundColorArrayFromLocalStorage = JSON.parse(localStorage.getItem('background-colors'))
-
-//  checks for localStorage item existence 
-if (backgroundColorArrayFromLocalStorage && textValueArrayFromLocalStorage) {
-    backgroundColorArray = backgroundColorArrayFromLocalStorage
-    textValueArray = textValueArrayFromLocalStorage
-
-}
-
-
-// saved alert EL selection
-const savedAlret = document.querySelector('#saved-alert')
+// saved alert element selection
+const savedAlert = document.querySelector("#saved-alert");
 
 // the notes container selection
-const notesContainer = document.querySelector('#notes')
-
-// buttons and notes
-let saveBtn = document.querySelectorAll('.save'),
-    textBox = document.querySelectorAll('.textbox'),
-    clearBtn = document.querySelectorAll('.clear'),
-    note = document.querySelectorAll('.note')
-
-
+const notesContainer = document.querySelector("#notes");
 
 // selects and updates newly created notes child and etc.
 function updateNewElements() {
-    saveBtn = document.querySelectorAll('.save')
-    textBox = document.querySelectorAll('.textbox')
-    clearBtn = document.querySelectorAll('.clear')
-    note = document.querySelectorAll('.note')
-
+	saveBtn = Array.from(document.querySelectorAll(".save"));
+	textBox = Array.from(document.querySelectorAll(".textbox"));
+	clearBtn = Array.from(document.querySelectorAll(".clear"));
+	note = Array.from(document.querySelectorAll(".note"));
 }
 
-// create notes on click 
+// create notes on click
 function createNote() {
-    color.forEach(item => {
-        // for each colored circles
+	colors.forEach((color) => {
+		color.addEventListener("click", () => {
+			const colorHexCode = color.getAttribute("backgroundColor");
 
-        item.addEventListener('click', () => {
+			const newNote = document.createElement("div");
+			newNote.classList.add("note");
+			newNote.setAttribute("style", `background:${colorHexCode};`);
+			newNote.innerHTML = `
+        <textarea class="textbox" spellcheck="false" dir="auto"></textarea>
+        <div class="buttons">
+          <button><i class='bx bxs-trash-alt clear'></i></button>
+          <button><i class='bx bxs-save save'></i></button>
+        </div>
+      `;
 
+			notesContainer.append(newNote);
 
-            // gets the related Background Color HexCode
-            let colorHexCode = item.getAttribute('backgroundColor')
+			backgroundColorArray.push(colorHexCode);
+			localStorage.setItem(
+				"background-colors",
+				JSON.stringify(backgroundColorArray)
+			);
 
-            // creates a new ELement (and gives it specefit settings)
-            let newInnerHtml = document.createElement('div')
-            newInnerHtml.classList.add('note')
-            newInnerHtml.setAttribute('style', `background:${colorHexCode};`)
-            newInnerHtml.innerHTML =
-                ` 
-            <textarea class="textbox" spellcheck="false" dir="auto"></textarea>
-            <div class="buttons">
-             <button><i class='bx bxs-trash-alt clear'></i></button>
-             <button><i class='bx bxs-save save'></i></button>
-            </div>
-                `
-
-            // appends new notes to the #notes container
-            notesContainer.append(newInnerHtml)
-
-            //  gets the clicked circle backgroundColor hexCode and set it to a variable
-            let newBackgroundColor = colorHexCode
-
-            // gets the newly created note's backgroundColor and pushes it into the backgroundColorArrays
-            backgroundColorArray.push(newBackgroundColor)
-            // pushes the created Array into localStorage
-            localStorage.setItem('background-colors', JSON.stringify(backgroundColorArray))
-
-
-            updateNewElements()
-            // runs the needed functions after creating each note
-            deleteNote()
-            saveNote()
-
-        })
-    })
+			updateNewElements();
+			deleteNote();
+			saveNote();
+		});
+	});
 }
-// deletes the notes on click 
+
+// deletes the notes on click
 function deleteNote() {
+	clearBtn.forEach((btn, index) => {
+		btn.addEventListener("click", () => {
+			note[index].remove();
+			backgroundColorArray.splice(index, 1);
+			localStorage.setItem(
+				"background-colors",
+				JSON.stringify(backgroundColorArray)
+			);
 
-    for (let i = 0; i < clearBtn.length; i++) {
-
-        // event for each clear Btn clicked
-        clearBtn[i].addEventListener('click', () => {
-
-
-            // removes the note element from the notesContaier's childs
-            note[i].remove()
-
-            // clears the background array for lenght of 1 and updates it in the localStorage
-            backgroundColorArray.splice(backgroundColorArray[i], 1)
-            localStorage.setItem('background-colors', JSON.stringify(backgroundColorArray))
-
-            // clears the textValue array for lenght of 1 and updates it in the localStorage
-            textValueArray.splice(textValueArray[i], 1)
-            localStorage.setItem('text-values', JSON.stringify(textValueArray))
-        })
-
-
-
-    }
+			textValueArray.splice(index, 1);
+			localStorage.setItem("text-values", JSON.stringify(textValueArray));
+		});
+	});
 }
-//  saves the notes on click
+
+// saves the notes on click
 function saveNote() {
+	saveBtn.forEach((btn, index) => {
+		btn.addEventListener("click", () => {
+			savedAlert.classList.add("alert");
+			setTimeout(() => {
+				savedAlert.classList.remove("alert");
+			}, 800);
 
-    for (let i = 0; i < saveBtn.length; i++) {
+			const textValue = textBox[index].value;
+			textValueArray[index] = textValue;
 
-        saveBtn[i].addEventListener('click', () => {
-
-            //  addes a class to saveAlert element and shows a alert / disappears after 
-            savedAlret.classList.add('alert')
-            setTimeout(() => {
-                savedAlret.classList.remove('alert')
-            }, 800)
-
-            // gets the text value
-            let textValue = textBox[i].value
-
-            // sets the related array item into the new text
-            textValueArray[i] = textValue
-
-
-
-
-            // pushes the array into the localStorage
-            localStorage.setItem('text-values', JSON.stringify(textValueArray))
-
-        })
-
-
-    }
-
+			localStorage.setItem("text-values", JSON.stringify(textValueArray));
+		});
+	});
 }
-// shows and addes the savedNotes from the localStorage to notes container
+
+// shows and adds the savedNotes from the localStorage to the notes container
 function showNotes() {
-
-    for (let i = 0; i < backgroundColorArray.length; i++) {
-
-        // creates a new ELement (and gives it specefit settings)
-        let newInnerHtml = document.createElement('div')
-        newInnerHtml.classList.add('note')
-        newInnerHtml.setAttribute('style', `background:${backgroundColorArray[i]};`)
-        newInnerHtml.innerHTML =
-            ` 
+	backgroundColorArray.forEach((backgroundColor, index) => {
+		const newNote = document.createElement("div");
+		newNote.classList.add("note");
+		newNote.setAttribute("style", `background:${backgroundColor};`);
+		newNote.innerHTML = `
       <textarea class="textbox" spellcheck="false" dir="auto"></textarea>
       <div class="buttons">
-       <button><i class='bx bxs-trash-alt clear'></i></button>
-       <button><i class='bx bxs-save save'></i></button>
+        <button><i class='bx bxs-trash-alt clear'></i></button>
+        <button><i class='bx bxs-save save'></i></button>
       </div>
-          `
+    `;
 
-        // appends new notes to the #notes container
-        notesContainer.append(newInnerHtml)
-        updateNewElements()
-
-        // sets the textBox's values into the same index of the textValueArrays
-        textBox[i].textContent = textValueArray[i]
-
-    }
-
-
+		notesContainer.append(newNote);
+		updateNewElements();
+		textBox[index].textContent = textValueArray[index];
+	});
 }
-// calls functions on dom load
-window.addEventListener('DOMContentLoaded', () => {
-    showNotes()
-    createNote()
-    saveNote()
-    deleteNote()
-    timeUpdate()
-})
 
-
-// +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+// calls functions on DOM load
+window.addEventListener("DOMContentLoaded", () => {
+	showNotes();
+	createNote();
+	saveNote();
+	deleteNote();
+	timeUpdate();
+});
 
 // (live time)
-
-const clock = document.getElementById('clock')
-let hour, minute, second, meridiem
+const clock = document.getElementById("clock");
+let hour, minute, second, meridiem;
 
 // updates the time every 1s
-setInterval(timeUpdate, 1000)
+setInterval(timeUpdate, 1000);
 
 // updates time function
 function timeUpdate() {
-    let time = new Date()
-    hour = time.getHours()
-    minute = time.getMinutes()
-    second = time.getSeconds()
+	const time = new Date();
+	hour = time.getHours();
+	minute = time.getMinutes();
+	second = time.getSeconds();
 
-    // checks for pm or am status 
-    if (hour < 12) {
-        meridiem = 'AM'
-    }
-    else {
-        meridiem = 'PM'
-    }
+	meridiem = hour < 12 ? "AM" : "PM";
 
-    // adds a 0 before the number if it's < 10
-    if (hour < 10) {
-        hour = `0${hour}`
-    }
-    if (minute < 10) {
-        minute = `0${minute}`
-    }
-    if (second < 10) {
-        second = `0${second}`
-    }
+	hour = hour < 10 ? `0${hour}` : hour;
+	minute = minute < 10 ? `0${minute}` : minute;
+	second = second < 10 ? `0${second}` : second;
 
-    // sets new times
-    clock.textContent = `${hour}:${minute}:${second} ${meridiem}`
+	clock.textContent = `${hour}:${minute}:${second} ${meridiem}`;
 }
