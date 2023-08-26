@@ -1,10 +1,10 @@
 // drop-down menu
 const menuEl = document.querySelector("#drop-menu");
-const colors = Array.from(document.querySelectorAll(".color"));
+const colors = document.querySelectorAll(".color")
 
 // function that hides/unhides the sidebar color elements
 function toggleColorVisibility() {
-	colors.forEach((color) => {
+	[...colors].map((color) => {
 		color.classList.toggle("show");
 	});
 
@@ -15,9 +15,10 @@ function toggleColorVisibility() {
 menuEl.addEventListener("click", toggleColorVisibility);
 
 // defines the backgroundColorArray and checks if it exists in localStorage and acts based on its existence
-let backgroundColorArray =
+const backgroundColorArray =
 	JSON.parse(localStorage.getItem("background-colors")) || [];
-let textValueArray = JSON.parse(localStorage.getItem("text-values")) || [];
+	
+const textValueArray = JSON.parse(localStorage.getItem("text-values")) || [];
 
 // saved alert element selection
 const savedAlert = document.querySelector("#saved-alert");
@@ -32,7 +33,6 @@ function updateNewElements() {
 	clearBtn = Array.from(document.querySelectorAll(".clear"));
 	note = Array.from(document.querySelectorAll(".note"));
 }
-
 // create notes on click
 function createNote() {
 	colors.forEach((color) => {
@@ -67,7 +67,7 @@ function createNote() {
 
 // deletes the notes on click
 function deleteNote() {
-	clearBtn.forEach((btn, index) => {
+	clearBtn.map((btn, index) => {
 		btn.addEventListener("click", () => {
 			note[index].remove();
 			backgroundColorArray.splice(index, 1);
@@ -84,7 +84,7 @@ function deleteNote() {
 
 // saves the notes on click
 function saveNote() {
-	saveBtn.forEach((btn, index) => {
+	saveBtn.map((btn, index) => {
 		btn.addEventListener("click", () => {
 			savedAlert.classList.add("alert");
 			setTimeout(() => {
